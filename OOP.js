@@ -1,8 +1,12 @@
 //Object Oriented Programming in JS - a programming paradigm/style centered around objects rather than functions
+
 //4 pillars of OOP
 //Encapsulation - grouping related variables and functions that operate on them into objects (reduce complexity + increase reusability)
+
 //Abstraction - a way of hiding the implementation details and sharing only the functionality to the users (reduce complexity)
-//Inheritance - enables you to define a class that takes all the functionality from a parent class and allows you to add more (code reusability + eliminate redundant code)
+
+//Inheritance - enables you to define a class/object that takes all the functionality from a parent class/object and allows you to add more (code reusability + eliminate redundant code)
+
 //Polymorphism - provides a way to perform a single action in different forms. It provides an ability to call the same method on different JS objects
 
 //Objects 
@@ -13,9 +17,9 @@
 //when a JS variable is declared with the keyword 'new', the variable is created as an object 
 //x = new String(); 
 //example
-// x = "string";
-// x = new String();
-// console.log(typeof x);
+// x = "string";  //will appear as a string when logged into the console
+// x = new String();  //will appear as an object
+//console.log(typeof x);
 //avoid string, number and boolean objects. They complicate the code and slow down execution speed
 
 //object example
@@ -25,10 +29,11 @@
 //     age : 45,
 //     fullName : function () {
 //         return `${this.firstName} is the first name of ${this.lastName}`; 
+//         //return this.firstName + " is the firstname of " + this.lastName;
 //     }
 // };
 
-// //console.log(person.firstName);
+// console.log(person.firstName);
 // console.log(person.fullName());
 
 //the 'this' keyword
@@ -59,8 +64,8 @@
 //     lastName : "Kato"
 // };
 
-// //return "Nicholas Kato"
-// //console.log(person1.fullName.call(person2));
+// // return "Nicholas Kato"
+// console.log(person1.fullName.call(person2));
 // console.log(person1.fullName.apply(person2));
 
 //'this' refers to person2 even if fullName is a method of person1
@@ -95,8 +100,8 @@
 //a function from which objects can be created 
 //it's good practice to Capitalise constructor names
 //example
-//constructor function
 
+//constructor function
 // function Vehicle(name, maker, year) {
 //     this.name = name;
 //     this.maker = maker;
@@ -106,13 +111,14 @@
 //     };
 // }
 
-// //Instatiate objects
-// let car1 = new Vehicle("Ford", "Honda");
-// let car2 = new Vehicle("Benz", "Mercedez");
+// //Instatiate(create) objects
+// let car1 = new Vehicle("Ford", "Honda", 1998);
+// let car2 = new Vehicle("Benz", "Mercedez", 2017);
 
-// console.log(car1.name);
+// // console.log(car1.name);
 // console.log(car2.brandName());
 // console.log(car1);
+// console.log(car2);
 
 //prototypes
 //another way to create objects
@@ -152,6 +158,7 @@
 // console.log(car2.brandName());
 // console.log(car2.reverseBrandName());
 // console.log(car1.getAge());
+//console.log(car1);
 
 //prototype inheritance
 //create an object called Bike and make it inherit the properties of the Vehicle object
@@ -167,16 +174,16 @@
 //     return `${this.name} ${this.maker} was made in ${this.year}`;
 // };
 
-// //Bike constructor
+// // Bike constructor
 // function Bike(name, maker, year, month) {
-//     Vehicle.call(this, name, maker, year);
+//     Vehicle.call(this, name, maker, year);  //inherit code from the Vehicle constructor
 //     this.month = month;
 // }
 
-// //Inherit prototype
+// // Inherit prototype
 // Bike.prototype = Object.create(Vehicle.prototype);
 
-// //Instantiate Bike Object
+// // Instantiate Bike Object
 // const bike1 = new Bike("BMW", "Volkswagen", 2017, "March");
 // console.log(bike1);
 // console.log(bike1.brandName());
@@ -195,18 +202,17 @@
 //             }
 // }
 
-// //create object 
+// // create object 
 // const car1 = Object.create(vehicleProtos);
 // car1.name = "Ford";
 // car1.maker = "Honda";
 // car1.year = 2013;
-
 // console.log(car1);
+//the keyword 'Object' should always be Capitalised(start with a capital "O")
 
 //JS Classes - ES6
 //templates for objects - simpler way of creating objects
-//static methods 
-//no need to instantiate - called using the actual class name
+//static methods - a method whose values will be the same for all objects created - no need to instantiate - called using the actual class name
 
 //example
 // class Vehicle {
@@ -234,18 +240,95 @@
 //     }
 // }
 
-// //Instantiate object
+// // Instantiate object
 // const car1 = new Vehicle("Benz", "Mercedez", 2018);
-// console.log(car1);
-// console.log(car1.getAge());
+// // console.log(car1);
+// // console.log(car1.getAge());
 
-// //calling a static method
+// // calling a static method
 // //console.log(car1.topCarMaker());
-// console.log(Vehicle.topCarMaker());
+// console.log(Vehicle.topCarMaker());  //static methods are called using the actual class name
 
-//sub-classes
+//sub-classes - class version of inheritance 
+//example
+
+// class Vehicle {
+//     constructor(name, maker, year) {
+//         this.name = name;
+//         this.maker = maker;
+//         this.year = year;
+//     }
+
+//     brandName = function () {
+//         return `${this.name} ${this.maker} was made in ${this.year}`;
+//     };
+
+//     reverseBrandName = function () {
+//         return `in ${this.year}, ${this.maker} ${this.name} was made`;
+//     };
+
+//     getAge = function () {
+//         const years = new Date().getFullYear() - this.year;
+//         return years;
+//     }
+
+//     static topCarMaker() {
+//         return "Tesla";
+//     }
+
+// }
+
+// //create subclass called Bike
+// class Bike extends Vehicle {
+//     constructor(name, maker, year, month) {
+//         super(name, maker, year);
+//         this.month = month;
+//     }
+// }
+
+// //Instantiate object
+// const bike1 = new Bike("BMW", "Volkswagen", 2020, "March");
+// console.log(bike1);
+
 //simpler than prototype inheritance
-//Bike subclass
 
 
 //Polymorphism
+//redefining a method inside a derived class(subclass) of a parent class
+//example
+
+//parent class
+// class Vehicle {
+//     constructor(name) {
+//         this.name = name;
+//     }
+
+//     makeSound() {
+//         console.log("Vhroooom!");
+//     }
+// }
+
+//create subclass
+// class Bike extends Vehicle {
+//     constructor(name) {
+//         super(name);
+//     }
+
+//redefined method
+//     makeSound() {
+//         super.makeSound();  //call parent method
+//         console.log("Vhroom Vhroom Vhroom!!!");
+//     }
+// }
+
+//Instantiate Objects
+// const car1 = new Vehicle("Benz");
+// const bike1 = new Bike("BMW");
+
+//call methods
+//car1.makeSound();
+// bike1.makeSound();
+
+//Getters and Setters - research*
+
+/* THE END */
